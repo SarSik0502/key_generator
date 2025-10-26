@@ -290,6 +290,14 @@ GenerateKeyHexes(size_t count, size_t seed_len =24, size_t out_len_bytes =64) {
     return keys;
 }
 
-int main() {
+int main(int argc, char** argv) {
+    size_t count    = static_cast<size_t>(std::stoull(argv[1]));
+    size_t seed_len = (argc > 2) ? static_cast<size_t>(std::stoull(argv[2])) : 24;
+    size_t out_len  = (argc > 3) ? static_cast<size_t>(std::stoull(argv[3])) : 64;
+
+    auto keys = GenerateKeyHexes(count, seed_len, out_len);
+    for (const auto& k : keys) {
+        std::cout << k << '\n';
+    }
     return 0;
 }
